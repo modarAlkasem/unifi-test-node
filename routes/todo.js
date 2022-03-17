@@ -40,4 +40,7 @@ router.get('/todos/:todoId', isAuth, [
         .withMessage("Todo parameter should be provided!")], todoController.getTodo);
 
 
+router.get('/todos', isAuth,todoController.getTodos);
+
+
 module.exports = router;

@@ -147,3 +147,27 @@ exports.getTodo = async (req, res, next) => {
     }
 
 }
+
+
+exports.getTodos = async (req, res, next) => {
+
+    const userId = req.userId;
+    try {
+        const todos = await Todo.find({creator : userId});
+        if (!todos) {
+            const error = new Error("No todos Found!");
+            error.statusCode = 404;
+            return next(error);
+        }
+        res.status(200).json({
+            message: "Todos returned  Successfully",
+            todo: todos
+        })
+    } catch (error) {
+        if (!error.statusCode) {
+            error.statusCode = 500;
+        }
+        next(error);
+    }
+
+}
