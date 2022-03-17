@@ -35,5 +35,9 @@ router.delete('/todos/:todoId', isAuth, [
     param('todoId').trim().notEmpty()
         .withMessage("Todo parameter should be provided!")], todoController.deleteTodo);
 
+router.get('/todos/:todoId', isAuth, [
+    param('todoId').trim().notEmpty()
+        .withMessage("Todo parameter should be provided!")], todoController.getTodo);
+
 
 module.exports = router;

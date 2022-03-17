@@ -111,3 +111,39 @@ exports.deleteTodo = async (req, res, next) => {
     }
 
 }
+
+
+exports.getTodo = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        const error = new Error("Invalid URL's Parameter!");
+        error.statusCode = 422;
+        error.data = errors.array();
+        return next(error);
+    }
+    const todoId = req.params.todoId;
+    const userId = req.userId;
+    try {
+        const todo = await Todo.findById(todoId);
+        if (!todo) {
+            const error = new Error("Todo Not Found!");
+            error.statusCode = 404;
+            return next(error);
+        }
+        if (todo.creator.toString() !== userId) {
+            const error = new Error("Not Authorized!");
+            error.statusCode = 403;
+            return next(error);
+        }
+        res.status(200).json({
+            message: "Todo returned  Successfully",
+            todo: todo
+        })
+    } catch (error) {
+        if (!error.statusCode) {
+            error.statusCode = 500;
+        }
+        next(error);
+    }
+
+}
