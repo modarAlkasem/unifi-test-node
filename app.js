@@ -27,7 +27,7 @@ app.use('/api/feed',todoRoutes);
 app.use((error, req, res, next)=>{
     const errorMessage = error.message;
     const errorCode = error.statusCode || 500;
-    const errorData = error.data;
+    const errorData = error.data?error.data:errorMessage;
     res.status(errorCode).json({
         message : errorMessage,
         data : errorData
