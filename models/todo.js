@@ -14,7 +14,7 @@ const todoSchema =new  Schema({
         type : mongoose.Types.ObjectId,
         ref : 'User'
     }
-});
+},{ timestamps: true });
 
 
-moodule.exports = mongoose.model('User' , userSchema);
+module.exports = mongoose.model('Todo' , todoSchema);

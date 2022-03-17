@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 
 const authRoutes = require('./routes/auth');
+const todoRoutes = require('./routes/todo');
 
 const MONGODB_URI = process.env.MONGODB_ATLAS_URI;
 
@@ -19,6 +20,7 @@ app.use((req,res,next)=>{
 
 app.use(bodyParser.json());
 app.use('/api/auth' ,authRoutes);
+app.use('/api/feed',todoRoutes);
 
 
 
